@@ -1,0 +1,77 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+
+ 	<div style="height:100px;"></div>
+
+	<div align="center">
+  	<table border="0" cellpadding="4">
+        
+    <tr>
+    <td align="center">
+    	<img id="pic_frame" src={{ refFilename  }} />
+    </td>
+
+{#     <img id="pic2" src={{ filename  }} width={{ width }} height={{ height }} />#}
+{#     <img id="pic1" src={{ refFilename  }} width={{ width }} height={{ height }} />#}
+    
+    
+  	</table>
+  
+  	<form method="post" action="" id="form_id">
+	<div id="form" ><input type="hidden" id="form_wait" name="form[wait]" /></div>
+	</form>
+  
+    <script type="text/javascript">
+
+    // scale imgs block
+	var width_dev = {{ width | raw }} * (1/window.devicePixelRatio);
+	var height_dev = {{ height | raw }} * (1/window.devicePixelRatio);
+    
+    var images = document.getElementsByTagName('img'); 
+    for(var i = 0; i < images.length; i++) {
+        images[i].width = width_dev;
+        images[i].height = height_dev;
+        
+    }
+
+	var presentationDuration;	
+   	presentationDuration = {{presentationDuration|json_encode|raw }};   
+   	presentationDuration = (presentationDuration * 2);   
+
+	var off_time = 100;
+
+	function changePicture( ){
+		var img = document.getElementById("pic_frame");
+		img.src = "";
+		img.width = 0;
+		img.height = 0;
+		
+		setTimeout(function(){
+			img.src= "{{ filename  }}";
+			img.width=width_dev;
+			img.height=height_dev;
+		}, off_time);
+	}		
+    
+    // change picture after presentationDuration / 2
+	setTimeout(function(){ changePicture( ) }, (presentationDuration/2));
+    
+    // go to rateing after presentationDuration
+ 	setTimeout( function(){$('#form_id').submit();}, (presentationDuration + off_time) );
+    
+		
+  </script>
+  
+</div>   
+    
+ {% endblock %}

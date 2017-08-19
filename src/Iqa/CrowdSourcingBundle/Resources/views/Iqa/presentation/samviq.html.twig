@@ -1,0 +1,212 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	
+	<script type="text/javascript">
+	var start_time = new Date();
+ 	
+ 	var usedratingSliderLabels ;
+
+ 	usedratingSliderLabels = {{ usedSliderLabel|json_encode|raw }};      
+
+	var def_rating = 5;	
+
+	function stopTime(){
+		var stop_time = new Date();
+		if (stop_time < start_time) {
+			stop_time.setDate(stop_time.getDate() + 1);
+		}
+		var diff = stop_time - start_time;			
+		document.getElementById("time_tracker").value = diff;
+	}
+
+	function sendData(){
+		var post = JSON.stringify(testSet);
+		document.getElementById("button").value = post;
+	}
+
+
+	var frame = document.getElementById("img");
+
+	var testSet = {{ filenames|json_encode|raw }};
+
+	var currentPic = 0;
+
+	// resize all images
+	var width_dev = {{ width | raw }} * (1/window.devicePixelRatio);
+	var height_dev = {{ height | raw }} * (1/window.devicePixelRatio);
+	
+	function change(value){
+		if(currentPic == value){
+			return;
+		}
+		currentPic = value;
+		document.getElementById("img").src= "";
+		document.getElementById("img").width=0;
+		document.getElementById("img").height=0;
+		
+		setTimeout(function(){loadNewPic(value)}, 100);
+	}
+
+	function loadNewPic(value){
+		// load picture
+		document.getElementById("img").src= testSet[value]['filename'];
+		document.getElementById("img").width=width_dev;
+		document.getElementById("img").height=height_dev;
+
+		// load slider
+		$( "#slider" ).slider( "value", testSet[value]['rating'] );
+	}		
+	
+  	</script> 	
+	
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 	
+
+{# 	<table border="1" width="100%" height="100%">#}
+	<table  width="100%" height="100%">
+	<tr>
+			<td width=80%; height=80%>
+			<center>
+			<img id="img" src="//:0" width={{ width }} height={{ height }} />
+			</center>
+
+			</td>
+			<td width=20%;>
+
+			<div id="slider" style="height:70%; width:10px;"></div>
+						
+			</td>	
+	</tr>
+		<tr>
+			<td  height=5%>
+			
+			<center>
+			<div id="buttonfield"></div>
+			{# + some dynamic buttons#}
+			</center>
+	
+{# 			<button id="pic0" name="pic" value="0" type="submit" onclick="change(0);">Bild 1</button>#}
+{# 			<button id="pic1" name="pic" value="1" type="submit" onclick="change(1);">Bild 2</button>#}
+{# 			<button id="pic2" name="pic" value="2" type="submit" onclick="change(2);">Bild 3</button>#}
+			
+			</td>
+			<td>
+			
+					<form id="post_form" action = "" method = "post">	
+					<button id="button" name="ratings" onclick="stopTime(); sendData();" type="submit">submit</button>
+					
+					<input type="hidden" id="time_tracker" name="time" value="-1"/>	
+					{# + some dynamic inputs#}
+							
+			</form>
+			    <br><div id="progressbar" style="width:200px; height:30px; bottom:0"><div id="progressLabel">{{currentImageCount  }} / {{ totalNumberOfImages }}</div></div>
+			
+			</td>
+		</tr>
+		<tr>
+			<td heigth=5%>
+			</td>
+			
+			<td>
+			
+
+			</td>
+		</tr>
+	</table>
+	
+	<script type="text/javascript">
+	bar = {{ progressBar | json_encode }};    
+   	if(bar){
+   		progressValue= {{ currentImageCount }} / {{ totalNumberOfImages }} * 100;
+   		$( "#progressbar" ).progressbar({
+   		    value: progressValue
+   		});
+        $("#progressbar").show();		
+	}
+   	else{
+        $("#progressbar").hide();		
+   	}
+   	
+	$("#slider").slider({ 
+		        min: 0, 
+		        max: 10,
+		        value: 5,
+		        step : 1,
+		        orientation: "vertical",
+		        value: Math.ceil(usedratingSliderLabels.length/2),
+		        
+		        change: function( event, ui ) {
+// 		        	document.getElementById("button").value = ui.value;
+					testSet[currentPic]['rating'] = ui.value;
+// 					document.getElementById("rating"+currentPic).value = ui.value;    			        	
+			    },
+			       	
+				create: function( event, ui ) {
+		    		var name = event.target.id;
+	        		$( "#form_" + name  ).val( Math.ceil(usedratingSliderLabels.length/2));
+				}
+	 		       
+		    }).slider("pips", {
+		        rest: "label",
+		        labels: usedratingSliderLabels 
+    });
+
+	
+	function addButton(id) {
+	    //Create an input type dynamically.   
+	    var element = document.createElement("button");
+	    element.type = "submit";
+	    element.value = id;
+	    element.id = "pic_button"+id;
+	    element.onclick = function() {
+	       change(id);
+	    };
+	    element.innerHTML = "Image "+ String.fromCharCode(64+id);;
+		if(id == 0){
+		    element.innerHTML = "Reference";
+		}	    
+	    element.sytle = "left:50%;";
+	    // add to place
+	    var foo = document.getElementById("buttonfield");
+	    foo.appendChild(element);
+
+// 		// every button get hidden input for POST
+// 		var hidden_input = document.createElement("input");
+// 		hidden_input.type = "hidden";
+// 		hidden_input.id = "rating"+id;
+// 		hidden_input.name = "rating[]";
+// 		hidden_input.value = def_rating;
+// 	    var foo2 = document.getElementById("post_form");
+// 	    foo2.appendChild(hidden_input);
+	};
+
+	for (i = 0; i < testSet.length; i++) {
+		testSet[i]['rating'] = def_rating;
+		addButton(i);
+	};
+
+	// set orig pic to default pic 
+	loadNewPic(0);
+    
+    var images = document.getElementsByTagName('img'); 
+    for(var i = 0; i < images.length; i++) {
+        images[i].width = width_dev;
+        images[i].height = height_dev;
+        
+    }
+
+    
+</script>
+    
+ {% endblock %}

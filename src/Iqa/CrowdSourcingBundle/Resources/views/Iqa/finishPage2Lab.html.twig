@@ -1,0 +1,34 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/my.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 	<div  id="Wrapper">
+	    <div id="TestTitle" class="commonBox" style="text-align:center">{{ surveyTitle }}</div>
+    
+    <div id="TestOutro" class="commonBox" style="display: block;">
+        
+        <!-- edit here if you want to change the welcome message  and instructions -->
+
+        <div style="text-align:center">
+           	<br>
+        	<br>
+        		Thank you very much for your participation and your feedback!
+        </div>
+
+  <div style="height:100px;"></div>
+        
+        
+  <center>
+         
+    <br><br><a href="/{{ nextTestID }}">go to the next part of this Experiment</a><br>
+          
+                 
+    </div>
+    
+    </div>
+	    
+ {% endblock %}

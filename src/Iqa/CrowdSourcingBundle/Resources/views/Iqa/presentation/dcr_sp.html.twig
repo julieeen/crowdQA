@@ -1,0 +1,68 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+ 	<script>	
+		var presentationDuration ;
+        $(document).ready(function(){
+        	presentationDuration = {{presentationDuration|json_encode|raw }};                
+        });
+
+		$(function(){setTimeout( function(){$('#form_id').submit();},presentationDuration) });
+
+
+	</script>
+	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	
+{# 	<style type="text/css">#}
+{# 	body{#}
+{# 		cursor:none;#}
+{# 	}#}
+{# 	</style>#}
+	{%  endblock %}
+ 
+ {% block body %}
+
+ 	<div style="height: 25%"></div>
+ 
+	<div align="center">
+  	<table border="0" cellpadding="4">
+	    <tr>
+	    <td align="center">
+	    </td>
+	    <td align="left">
+	    	<img id="pic1" src={{ refFilename  }} autofocus="autofocus" width={{ width }} height={{ height }} onchange="alert()" />
+	    </td>
+	    <td align="center">
+	    	<img id="pic2" src={{ filename  }} width={{ width }} height={{ height }} />
+	    </td>
+	    <td align="center" >
+	   	</td>
+	    </tr>
+  	</table>
+  
+  	<form method="post" action="" id="form_id">
+	<div id="form" ><input type="hidden" id="form_wait" name="form[wait]" /></div>
+	</form>
+  
+    <script type="text/javascript">
+    
+	var width_dev = {{ width | raw }} * (1/window.devicePixelRatio);
+	var height_dev = {{ height | raw }} * (1/window.devicePixelRatio);
+    
+    var images = document.getElementsByTagName('img'); 
+    for(var i = 0; i < images.length; i++) {
+        images[i].width = width_dev;
+        images[i].height = height_dev;
+    }   
+		
+  </script>
+  
+</div>   
+    
+ {% endblock %}

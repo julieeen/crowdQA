@@ -1,0 +1,79 @@
+/* .ui-slider-tick-mark{
+    display:inline-block;
+    width:2px;
+    background:black;
+    height:16px;
+    position:absolute;
+    top:-4px;
+} */
+
+.iqa{
+	background-color:#808080;
+
+}/* 
+.iqa .button {
+  background-color:lightgray;
+  }
+ */
+
+.iqa .ui-slider-vertical {
+    height: 400px;
+    width: 8px;
+}
+
+.iqa .ui-slider .ui-slider-handle {
+
+    cursor: default;
+    height: 0.5em;
+    position: absolute;
+    width: 1.2em;
+    z-index: 2;
+}
+
+.iqa .ui-state-default, 
+.iqa .ui-widget-content,
+.iqa .ui-state-default,
+.iqa .ui-widget-header,
+.iqa .ui-state-default{
+	background: lightgray;
+	border-color: black;
+}
+
+
+.iqa .ui-slider-pips .ui-slider-line{
+	background: black
+}
+
+.iqa .ui-slider-pips .ui-slider-pip-selected-initial,
+.iqa .ui-slider-pips .ui-slider-pip-selected-initial-first,
+.iqa .ui-slider-pips .ui-slider-pip-selected-initial-second {
+
+      }
+
+.iqa .ui-slider-pips .ui-slider-pip,
+.iqa .ui-slider-pips .ui-slider-pip-selected,
+.iqa .ui-slider-pips .ui-slider-pip-selected-first,
+.iqa .ui-slider-pips .ui-slider-pip-selected-second,
+.iqa .ui-slider-pip:hover .ui-slider-label {
+ 	font-weight: normal;
+    color: black;
+
+
+    }
+
+
+	
+.iqa .commonBox {
+    margin-top:20px;
+    margin-bottom:20px;
+    padding:20px;
+    border: 1px solid black;
+    width: 100%;
+}
+
+.iqa #Wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width: 720px;
+}
+

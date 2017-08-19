@@ -1,0 +1,157 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/my.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 	<div  id="Wrapper">
+	    <div id="TestTitle" class="commonBox" style="text-align:center">{{ surveyTitle }} : Pre-Survey</div>
+    <div id="TestIntroduction" class="commonBox" style="display: block;">
+        
+        <!-- edit here if you want to change the welcome message  and instructions -->
+
+        <div style="text-align:left; font-size:16pt">
+           	<br>
+        	<br>
+
+			{{ preSurveyText }}
+        		                      
+        	<br>
+        	<br>      	
+        	
+        	<form method="post" action=""> 
+        	
+        	<table style="width:100%">
+  				<tr>
+				    <td>Gender : </td>
+				    <td> 
+				    <select name="gender" size="1">
+				        <option value="1">woman</option>
+				        <option value="0">man</option>
+      				</select>
+      				</td>
+				</tr>
+				<tr>
+				    <td>Age range : </td>
+				    <td>
+				    	<select name="age" size="1" >
+				        	<option value="12">Under 12</option>
+				        	<option value="17">12-17</option>
+					        <option selected="selected" value="24">18-24</option>
+					        <option value="34">25-34</option>
+					        <option value="45">35-44</option>
+					        <option value="54">45-54</option>
+					        <option value="64">55-64</option>
+					        <option value="75">65-75</option>
+					        <option value="99">75 or older</option>
+      					</select>
+				    </td> 
+				</tr>
+				<tr>
+{# 				    <td> Occupation category : </td>#}
+{# 				    <td>#}
+{# 				    	<select name="occupation" size="1" >#}
+{# 				        	<option value="worker">worker</option>#}
+{# 					        <option selected="selected" value="student">student</option>#}
+{#       					</select>#}
+{# 				    </td> #}
+				</tr>
+				<tr>
+				    <td>Lightning condition : </td>
+				    <td>
+				    <select name="lightningCondition" size="1">
+				    	<option value="lab">lab environment (perfect ) </option>
+				    	<option value="good">pretty good! (no sunlight, no artificial light)</option>
+				        <option selected="selected" value="normal">normal (no sunlight, low artificial light)</option>
+				        <option value="bad">bad (direct sunlight or bright artificial light)</option>
+				        <option value="idk">I don't know (you don't know)</option>
+				     </select>		    
+				    </td> 
+				</tr>
+				<tr>
+				    <td>Display height : </td>
+				    <td><input type="text" name="displayHeight" style="width:50px"/> mm</td> 
+				</tr>
+				<tr>
+				    <td>Viewing Distance : </td>
+				    <td><input type="text" name="viewingDistance" style="width:50px"/> mm</td> 
+				</tr>	
+				
+				<tr>
+				    <td>I'm an expert in video coding : </td>
+				    <td>
+				    <select name="expert" size="1">
+				        <option value="0">no</option>
+				        <option value="1">yes</option>
+      				</select>
+				    </td> 
+				</tr>								
+				
+				
+				</table>
+		    <br>
+		    <hr>		    
+		    <br>
+		    
+		    You can accomplish an optional vision test <a href="iqa" >here</a>.    
+		    
+		    <input type="hidden" value="beck" name="beck" style="border-color:red"  />
+		    <input type="hidden" value="snellen" name="snellen" />
+		    
+{# 		    Now try to read the numbers in these pictures and enter the concatenation of them into the textfield below.#}
+{# 		   For example the concatenation of 33 and 44 is 3344.#}
+		    
+{# 		    <br>	      	#}
+{#         	<td align="center"><img src="http://www.tedmontgomery.com/the_eye/colortst/graphics/plate01.jpg" /></td>#}
+{#     		<td align="center"><img src="http://www.tedmontgomery.com/the_eye/colortst/graphics/plate03.jpg" /></td>#}
+{#     		<td align="center"><img src="http://www.tedmontgomery.com/the_eye/colortst/graphics/plate16.jpg" /></td>#}
+{#     		<td align="center"><img src="http://www.tedmontgomery.com/the_eye/colortst/graphics/plate02.jpg" /></td>		#}
+{#             <br>#}
+{#             <br>#}
+{#             The concatenation of the numbers : <input type="text" name="beck" style="border-color:red"  />#}
+{#             <br>#}
+{# 	   		<br>#}
+{# 		    <hr>		    #}
+{# 		    <br>#}
+            
+{#             Now try to enter the letters from line 6 (green underlined) on the snellen chart.<br>#}
+{#            	To calibrate this test, you should measure the size of the letter E on the top. <br>#}
+{#            	This size you should divide by 88 and multiplay with 6 to get the optimal distance for this test.           #}
+{#             If E is 42 mm, you should be ( 42 / 88) x 6 = 2.8 m away from your monitor.#}
+{#             <br>#}
+{#             <br>#}
+            
+{#             <td align="center"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Snellen_chart.svg/2000px-Snellen_chart.svg.png" style="width:100%"/></td>		#}
+{#             <br>#}
+{#             <br>#}
+{#             The letters are : <input type="text" name="snellen" />#}
+            
+{#             <br>#}
+{# 		    <hr>		    #}
+{# 		    <br>#}
+		    
+    		<p><input type="submit" /></p>
+			</form>
+        	
+        	<script type="text/javascript">
+			
+	
+        	
+        	</script>
+        
+        
+        
+        
+        </div>
+        
+    </div>
+    
+    </div>
+    
+    
+    
+    
+	    
+ {% endblock %}

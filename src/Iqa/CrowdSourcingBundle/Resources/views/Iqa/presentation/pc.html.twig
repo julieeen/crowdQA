@@ -1,0 +1,71 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+ 	<script>
+	var presentationDuration ;
+    $(document).ready(function(){
+        	presentationDuration = {{presentationDuration|json_encode|raw }};                
+     });
+
+	$(function(){
+		setTimeout(function()
+		{
+		$('#form_id').submit();}
+	,presentationDuration) }
+	);
+
+
+	
+				
+	</script>
+	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 	<br>
+	<br>
+	<br>
+	<div align="center">
+  	<table border="0" cellpadding="4">
+    
+    <tr>
+    <td align="center">
+    
+    
+    </td>
+
+    <td align="left"><img id="pic1" src={{ refFilename  }} width="getwidth()" height="get_heigth()" /></td>
+    
+    <td align="center"><img id="pic2" src={{ filename  }} width="get_width();" height="get_heigth();" /></td>
+    <td align="center" >
+		        <form method="post" action="" id="form_id">
+				<div id="form" ><input type="hidden" id="form_wait" name="form[wait]" /></div></form>
+		
+   	</td>
+    </tr>
+       
+  </table>
+  
+  <script type="text/javascript">
+  
+	var width_dev = {{ width | raw }} * (1/window.devicePixelRatio);
+	var height_dev = {{ height | raw }} * (1/window.devicePixelRatio);
+
+	document.getElementById("pic1").width = width_dev;
+	document.getElementById("pic1").height = height_dev;
+		
+	document.getElementById("pic2").width = width_dev;
+	document.getElementById("pic2").height = height_dev;
+		
+  </script>
+  
+</div>    
+    
+ {% endblock %}
+ 

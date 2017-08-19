@@ -1,0 +1,48 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/my.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 	<div  id="Wrapper">
+	    <div id="TestTitle" class="commonBox" style="text-align:center">{{ surveyTitle }}</div>
+    
+    <div id="TestOutro" class="commonBox" style="display: block;">
+        
+        <!-- edit here if you want to change the welcome message  and instructions -->
+
+        <div style="text-align:center">
+           	<br>
+        	<br>
+        		Thank you very much for your participation!
+        </div>
+
+  <div style="height:100px;"></div>
+        
+        
+  <center>
+   You had some trouble? 
+   Please give us feedback :
+  <br>
+  <br>
+  <form action = "" metdod = "post">	
+    <textarea id="feedback_text" name="feedback" value="" rows="10" cols="50"></textarea><br>
+    <button id="button" type="submit">submit</button>
+ </form>
+ 
+	<br><a href="/{{ nextTestID }}">go to the next part of this Experiment</a><br>
+
+	
+ 
+ 
+ 
+  </center>
+                 
+    </div>
+    
+    </div>
+    
+    
+ {% endblock %}

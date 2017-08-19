@@ -1,0 +1,48 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+  	<table style="height:100%; width:100%" border="0" cellpadding="4" align="center">
+    <tr >
+	    <td width="70%"  align=center >
+	    	
+	    	<video width="{{ width }}" autoplay>
+  			<source src="{{ filename  }}" type="video/ogg">
+  			Your browser does not support HTML5 video.
+			</video>
+	    	
+	    </td>
+	    
+    </tr>	    
+       
+  </table>
+  	
+	
+    <form method="post" action="" id="form_id">
+		<div id="form" ><input type="hidden" id="form_wait" name="form[wait]" />
+		</div>
+	</form>		
+
+	<script type="text/javascript">
+	 	var video = document.getElementsByTagName('video')[0];
+
+	    video.onended = function(e) {
+	    	$('#form_id').submit();
+	    };
+
+
+	</script>
+   	
+  </div>
+    
+ {% endblock %}
+ 

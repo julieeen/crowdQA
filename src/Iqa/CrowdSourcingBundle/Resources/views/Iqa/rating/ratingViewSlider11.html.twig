@@ -1,0 +1,90 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+{# 	<style>#slider { margin: 10px; }	</style>#}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+{# 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/south-street/jquery-ui.css">#}
+	
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  	
+  	<script src="{{ asset('bundles/iqacrowdsourcing/js/jquery-ui-slider-pips.js') }}"></script>
+  	
+  	
+  	<script type="text/javascript">
+   	 	
+ 	var	usedratingSliderLabels = {{ usedSliderLabel|json_encode|raw }};      
+						
+	
+  	</script> 	
+	
+	{%  endblock %}
+ 
+ 	{% block body %}
+
+ 	<div style="height:10%;"> 	</div>
+
+	<center style="height:60%;">	
+	<div id="slider" style="height:80%; width:10px;"></div>
+	
+ 	<div style="height:20%;"> </div>
+		
+	<form action = "" metdod = "post">	
+		<br><br>
+	 	<button id="button2" name="rating" value="-1" onclick="error_button();">skip this vote</button>
+
+		<button id="button" name="rating" value="3" onclick="stopTime();" type="submit" style="display: none;">submit</button>
+		
+		<input type="hidden" id="time_tracker" name="time" value="-1"/>		
+	</form>
+	
+    <br><div id="progressbar" style="width:300px; height:30px;"><div id="progressLabel">{{currentImageCount  }} / {{ totalNumberOfImages }}</div></div>
+	
+	</center>		
+
+	
+	<small>{{ debugText }}</small>
+    
+    <script type="text/javascript">
+    bar = {{ progressBar | json_encode }};    
+   	if(bar){
+   		progressValue= {{ currentImageCount  }} / {{ totalNumberOfImages }} *100;
+   		$("#progressbar").progressbar({
+   		  	value: progressValue
+   		});
+        $("#progressbar").show();		
+	}
+   	else{
+        $("#progressbar").hide();		
+   	}	
+   	
+    var button = document.getElementById("button");
+
+	function error_button(){
+		button.value = "-1";
+		button.click();
+	}
+    
+	$("#slider").slider({ 
+	 		        min: 0, 
+	 		        max: 10,
+	 		        step : 1,
+	 		        orientation: "vertical",
+	 		        value: Math.ceil( (usedratingSliderLabels.length-1)/2 ),
+	 		        
+			        change: function( event, ui ) {
+				        button.value = ui.value;
+				        button.click();      
+	 		       	},
+	 		       	 	 		       
+	 		    }).slider("pips", {
+	 		        rest: "label",
+	 		        labels: usedratingSliderLabels 
+    });
+	</script>
+    
+    
+ {% endblock %}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        
+        <title>{% block title %}Image Quality Assessment{% endblock %}</title>
+        
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    	
+		{% block stylesheets %}{% endblock %}
+        <script type="text/javascript" src="{{ asset('/bundles/iqacrowdsourcing/js/jquery-1.11.2.js')  }}"></script>
+ 		<script type="text/javascript" src="{{ asset('/bundles/iqacrowdsourcing/js/jquery-ui.js')  }}"></script>
+ 		<script type="text/javascript" src="{{ asset('/bundles/iqacrowdsourcing/js/jquery-ui-slider-pips.js')  }}"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+		
+		
+		<script type="text/javascript">
+		var start_time = new Date();
+		
+		function stopTime(){
+			var stop_time = new Date();
+			if (stop_time < start_time) {
+				stop_time.setDate(stop_time.getDate() + 1);
+			}
+			var diff = stop_time - start_time;			
+			document.getElementById("time_tracker").value = diff;
+		}
+
+		
+  		</script> 
+		
+		{% block jsfunctions %} {% endblock %}
+		
+ 	
+		<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/my.css') }}">
+	
+		<script type="text/javascript">
+				
+		// kill browser back function
+		history.go(1);	
+
+		// kill zoom features
+		$(document).ready(function(){
+			$(document).keydown(function(event) {
+				// kill all keys
+				// supress + and -
+				if((event.which == '187') || (event.which == '189')){
+				    event.preventDefault();
+				}		
+			});
+		})
+		
+		// kill rightclick
+		
+		function click (e) {
+		  if (!e)
+		    e = window.event;
+		  if ((e.type && e.type == "contextmenu") || (e.button && e.button == 2) || (e.which && e.which == 3)) {
+		    if (window.opera)
+		      window.alert("Sorry: Diese Funktion ist deaktiviert.");
+		    return false;
+		  }
+		}
+		if (document.layers)
+		  document.captureEvents(Event.MOUSEDOWN);
+		document.onmousedown = click;
+		document.oncontextmenu = click;
+		
+		// kill text select feature
+		</script>
+		<style type="text/css">
+		  body {
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-o-user-select: none;
+			user-select: none;  
+		  }
+		</style>
+
+	
+    </head>
+    
+    
+    
+    <body class='iqa' >
+    
+        {% block body %}
+        {% endblock %}
+        
+        {% block javascripts %}
+        {% endblock %}
+   
+   </body>
+    
+   <script type="text/javascript">
+
+
+   
+   </script>
+       
+</html>

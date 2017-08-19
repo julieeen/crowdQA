@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: /Users/julieeen/workspace/subjectiveIqa-0.0-fietkau/crowdSourcingFramework/app/config/routing_dev.yml

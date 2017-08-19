@@ -1,0 +1,47 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/my.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 
+ 	<script type="text/javascript">
+
+	var imgList = {{ imgPreload | json_encode | raw }};
+
+	var preload = new Array();
+	for(var i = 0; i < imgList.length; i++){
+		img1 = new Image();
+		img1.src = imgList[i].filename;
+
+		img2 = new Image();
+		img2.src = imgList[i].origFilename;
+
+		preload.push(img1)
+		preload.push(img2)
+	}
+	
+	</script>
+ 
+ 	<div  id="Wrapper">
+	    <div id="TestTitle" class="commonBox" style="text-align:center">{{ surveyTitle }}</div>
+    <div id="TestIntroduction" class="commonBox" style="display: block;">
+        
+        <div style="text-align:left">
+           	<br>
+        	<br>
+        	{{ instructionText | replace({'0x0A' : "<br>"}) | raw }}
+        	            
+        </div>
+        <br>
+        <br>
+        {{ form_start(form) }}     
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+    
+    </div>
+	    
+ {% endblock %}

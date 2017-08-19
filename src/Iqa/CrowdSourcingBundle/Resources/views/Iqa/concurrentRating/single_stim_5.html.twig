@@ -1,0 +1,134 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+ 	<script>	
+ 		var	usedratingSliderLabels = {{ usedSliderLabel|json_encode|raw }};      
+ 	
+ 	
+        var start_time = new Date();
+ 		
+    	function stopTime(){
+    		var stop_time = new Date();
+    		if (stop_time < start_time) {
+    			stop_time.setDate(stop_time.getDate() + 1);
+    		}
+    		var diff = stop_time - start_time;			
+    		document.getElementById("time_tracker").value = diff;
+    	}
+
+
+	</script>
+	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+
+ 	<table style="height:100%; width:100%" border="0" cellpadding="4" align="center">
+    <tr >
+	    <td width="70%"  align=center >
+	    	<img id="pic1" src={{ filename  }} width="" height="" />
+	    </td>
+	    
+        <td width="30%" align="center" >
+			<div style="height:20%;"> </div>
+			
+			<div id="slider" style="height:50%; width:10px;"></div>	
+			
+			<div style="height:10%;"></div> 
+			
+		 	<div style="height:20%;"> 
+				
+			<form action = "" metdod = "post">
+				<br><br>
+			 	<button id="button2" name="rating" value="-1" onclick="error_button();">skip this vote</button>
+
+			 	<button id="button" name="rating" value="3" onclick="stopTime();" type="submit" style="display: none;">submit</button>
+				<input type="hidden" id="time_tracker" name="time" value="-1"/>		
+			</form>
+			
+			<br><div id="progressbar" style="width:200px; height:30px;"><div id="progressLabel">{{currentImageCount  }} / {{ totalNumberOfImages }}</div></div>
+			
+			
+		 	</div>
+				        
+        </td>
+  
+    </tr>	    
+       
+  </table>
+   
+  
+    <script type="text/javascript">
+    bar = {{ progressBar | json_encode }};    
+   	if(bar){
+   		progressValue= {{ currentImageCount  }} / {{ totalNumberOfImages }} *100;
+   		$("#progressbar").progressbar({
+   		  	value: progressValue
+   		});
+        $("#progressbar").show();		
+	}
+   	else{
+        $("#progressbar").hide();		
+   	}	
+
+    var button = document.getElementById("button");
+
+	function error_button(){
+		button.value = "-1";
+		button.click();
+	}
+
+    
+	$("#slider").slider({ 
+	        min: 1, 
+	        max: 5,
+	        step : 1,
+	        orientation: "vertical",
+	        value: 3,
+	        
+        change: function( event, ui ) {
+	        button.value = ui.value;
+	        button.click();      
+	       	},
+	       	
+		       
+	    }).slider("pips", {
+	        rest: "label",
+	        labels: usedratingSliderLabels, 
+		    step: 1
+	});
+    
+ 	//scale imgs block		
+	var width_dev = {{ width | raw }} * (1/window.devicePixelRatio);
+	var height_dev = {{ height | raw }} * (1/window.devicePixelRatio);
+	
+	var images = document.getElementsByTagName('img'); 
+	for(var i = 0; i < images.length; i++) {
+	    images[i].width = width_dev;
+	    images[i].height = height_dev;
+	    
+	}
+
+ 	presentationDuration = {{presentationDuration|json_encode|raw }}; 
+
+	function disableImgs(){
+		for(var i = 0; i < images.length; i++) {
+			images[i].src = "";
+		    images[i].width = 0;
+		    images[i].height = 0;
+		}
+	}
+ 	
+ 	setTimeout(function(){ disableImgs(); }, presentationDuration);
+		
+  </script>
+  
+</div>   
+    
+ {% endblock %}

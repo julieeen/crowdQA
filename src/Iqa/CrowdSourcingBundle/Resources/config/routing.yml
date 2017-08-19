@@ -1,0 +1,35 @@
+iqa_crowd_sourcing_homepage:
+    path:     /iqa
+    defaults: { _controller: IqaCrowdSourcingBundle:Iqa:welcome }
+
+iqa_crowd_sourcing_survey:
+    path:     /survey
+    defaults: { _controller: IqaCrowdSourcingBundle:Iqa:survey }
+    
+iqa_crowd_sourcing_instruction:
+    path:     /instruction
+    defaults: { _controller: IqaCrowdSourcingBundle:Iqa:instruction }
+
+
+
+iqa_crowd_sourcing_rate:
+    path:     /rate
+    defaults: { _controller: IqaCrowdSourcingBundle:Iqa:rate }
+
+iqa_crowd_sourcing_present:
+    path:     /present
+    defaults: { _controller: IqaCrowdSourcingBundle:Iqa:present }
+
+
+
+
+iqa_crowd_sourcing_finish:
+    path:     /finish
+    defaults: { _controller: IqaCrowdSourcingBundle:Iqa:finish }
+
+iqa_crowd_sourcing_homepage_default:
+    path:     /{experimentId}
+    defaults: { _controller: IqaCrowdSourcingBundle:Iqa:welcome, experimentId:iqa }    
+    
+
+    

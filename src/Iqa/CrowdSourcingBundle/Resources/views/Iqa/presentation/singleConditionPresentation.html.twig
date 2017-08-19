@@ -1,0 +1,53 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+ 	<script>
+		var presentationDuration ;
+        $(document).ready(function(){
+        	presentationDuration = {{presentationDuration|json_encode|raw }};                
+        });
+
+		$(function(){
+			setTimeout(function()
+					{
+					$('#form_id').submit();}
+		,presentationDuration) }
+		);		
+	</script>
+	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 
+	<div align="center" >
+	<br>
+	<br>
+	<br>
+	<img src={{ filename  }} width={{ width }} height={{ height }} />
+    <form method="post" action="" id="form_id">
+	<div id="form" ><input type="hidden" id="form_wait" name="form[wait]" /></div></form>
+					
+
+	<script type="text/javascript">
+		// scale imgs block		
+		var width_dev = {{ width | raw }} * (1/window.devicePixelRatio);
+		var height_dev = {{ height | raw }} * (1/window.devicePixelRatio);
+		
+		var images = document.getElementsByTagName('img'); 
+		for(var i = 0; i < images.length; i++) {
+		    images[i].width = width_dev;
+		    images[i].height = height_dev;
+		    
+		}
+	</script>
+   	
+  </div>
+    
+ {% endblock %}
+ 

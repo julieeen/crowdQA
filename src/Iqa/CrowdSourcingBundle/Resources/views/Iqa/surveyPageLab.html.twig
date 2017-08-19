@@ -1,0 +1,207 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/my.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 	<div  id="Wrapper">
+	    <div id="TestTitle" class="commonBox" style="text-align:center">{{ surveyTitle }} : Pre-Survey</div>
+    <div id="TestIntroduction" class="commonBox" style="display: block;">
+        
+        <!-- edit here if you want to change the welcome message  and instructions -->
+
+        <div style="text-align:left; font-size:16pt">
+           	<br>
+        	<br>
+
+			{{ preSurveyText }}
+        		                      
+        	<br>
+        	<br>      	
+        	
+        	<form method="post" action=""> 
+        	
+        	<hr style="height:1px;border:none;color:#333;background-color:#333;" />
+        	
+        	<br>      	
+        	
+        	<table id="table" style="width:80%; font-size:90%;">
+        	<tr>
+				<td >
+				    Gender : 
+				    </td>
+				    <td> 
+				    <select name="gender" size="1">
+				        <option value="0">man</option>
+				        <option value="1">woman</option>
+      				</select>
+      				</td>
+				</tr>
+				<tr>
+				    <td>Age : </td>
+				    <td>		  				
+				    	<input type="text" value="" name="age" autocomplete="off" maxlength="3" style="width:82px; text-align: center;"/> 
+{# 				    	<select name="age" size="1" >#}
+{# 				        	<option value="12">Under 12</option>#}
+{# 				        	<option value="17">12-17</option>#}
+{# 					        <option selected="selected" value="24">18-24</option>#}
+{# 					        <option value="34">25-34</option>#}
+{# 					        <option value="45">35-44</option>#}
+{# 					        <option value="54">45-54</option>#}
+{# 					        <option value="64">55-64</option>#}
+{# 					        <option value="75">65-75</option>#}
+{# 					        <option value="99">75 or older</option>#}
+{#       					</select>#}
+				    </td> 
+				</tr>
+				<tr>
+{# 				    <td> Occupation category : </td>#}
+{# 				    <td>#}
+{# 				    	<select name="occupation" size="1" >#}
+{# 				        	<option value="worker">worker</option>#}
+{# 					        <option selected="selected" value="student">student</option>#}
+{#       					</select>#}
+{# 				    </td> #}
+				</tr>
+				
+				<tr>
+				    <td>I have knowledge about video coding : </td>
+				    <td>
+				    <select name="expert" size="1">
+				        <option value="0">no</option>
+				        <option value="1">yes</option>
+      				</select>
+				    </td> 
+				</tr>				
+			</table>
+			
+			</table>	
+			
+{# 			<br>#}
+{#         	<hr style="height:1px;border:none;color:#333;background-color:#333;" />#}
+{# 			<br>#}
+				
+{# 			<table id="table" style="width:100%">#}
+{# 	  			<tr>#}
+{# 		  			<td style="width:70%">#}
+{# 						Maybe you recive a personal identification <br> code and if so, you should enter it here:#}
+{# 		  			</td>#}
+{# 					<td>#}
+{# 		  				<input type="text" value="" name="personalID" maxlength="15" style="width:150px; text-align: center;"/> #}
+{# 		  			</td>#}
+{# 				</tr>			#}
+													
+{# 			</table>#}
+			
+{# 			<br>#}
+{#         	<hr style="height:1px;border:none;color:#333;background-color:#333;" />#}
+{# 			<br>#}
+
+			
+			<table id="table" style="width:100%">
+			<input type="hidden" name="displayHeight" value="34"/>
+			<input type="hidden" name="viewingDistance" value="100"/>
+			<input type="hidden" name="lightningCondition" value="lab"/>
+			
+{# 			<tr>#}
+{# 				<td style="width:70%">#}
+{# 						Lightning condition : #}
+{# 					</td>#}
+{# 				    <td>#}
+{# 				    <select name="lightningCondition" disabled size="1">#}
+{# 				    	<option selected value="lab">lab environment</option>#}
+{# 				    </select>#}
+{# 				</td> #}
+{# 			</tr>#}
+{# 			<tr>#}
+{# 				    <td>Display height : </td>#}
+{# 				    <td><input type="text" name="displayHeight" value="35" maxlength="5" disabled style="width:50px; text-align: center;"/> mm</td> #}
+{# 			</tr>#}
+{# 			<tr>#}
+{# 				    <td>Viewing Distance : </td>#}
+{# 				    <td><input type="text" value="110" name="viewingDistance" maxlength="5" disabled style="width:50px; text-align: center;"/> mm</td> #}
+{# 			</tr>#}
+			</table>
+						
+			
+		    <br>
+        	<hr style="height:1px;border:none;color:#333;background-color:#333;" />
+		    		    
+		    <br id="visionBlock">
+		    
+{# 		    <div id="visionText">#}
+{# 			    You can accomplish an optional vision test by clicking this <a href="javascript:buildVisionTest();" >link</a>.    #}
+{# 		    </div> #}
+		    	  
+		    <div id="visionTest" style="display: none;">
+			    Try to read the numbers in these pictures and enter the concatenation of them into the textfield below.
+			   	For example the concatenation of 33 and 44 is 3344.
+			    <br>
+			    <table style="width:100%; background-color:white""">
+			       	<tr>
+					    <td><img src="http://upload.wikimedia.org/wikipedia/commons/4/4b/Ishihara_1.PNG" width="100%"/></td>
+					    <td><img src="http://upload.wikimedia.org/wikipedia/commons/c/c3/Ishihara_11.PNG" width="100%"/></td>
+				  	</tr>
+				  	<tr>
+					    <td><img src="http://upload.wikimedia.org/wikipedia/commons/a/ae/Ishihara_19.PNG" width="100%"/></td>
+					    <td><img src="http://upload.wikimedia.org/wikipedia/commons/f/f0/Ishihara_23.PNG" width="100%" /></td>
+				  	</tr>
+			    </table>
+
+	            <br>
+	            <br>
+	            	The concatenation of the numbers is <input type="text" name="colortest" />
+	            <br>
+		   		<br>
+			    <hr style=" border-color: black;">
+		    
+			    <br>
+	            
+		            Now try to read the letters from line 6 (green underlined) on the snellen chart.<br>
+		           	To calibrate this test, you should measure the size of the letter E on the top. <br>
+		           	This size you should divide by 88 and multiplay with 6 to get the optimal distance for this test.           
+		            If E is 42 mm, you should be ( 42 / 88) x 6 = 2.8 m away from your monitor.
+	            <br>
+	            <br>
+	            	<td align="center"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Snellen_chart.svg/2000px-Snellen_chart.svg.png" style="width:100%"/></td>		
+	            <br>
+	            <br>
+	            	The letters looks			<select name="vision" size="1" value="">
+	            	       							<option value="well">well</option>
+				       								<option value="blurred">blurred</option>
+				       								<option value="unreadable">unreadable</option>				       								
+	            								    <option selected value="">whatever</option>
+      											</select>
+			    <hr style=" border-color: black;">
+		    </div>
+			    
+    		<p align="right"><input type="submit" /></p>
+			</form>
+        	
+        
+        
+        
+        
+        </div>
+        
+    </div>
+    
+    </div>
+    
+	<script language="javascript"> 
+	
+	function buildVisionTest(){
+		document.getElementById("visionText").remove();
+		document.getElementById("visionTest").style.display = "initial";
+	}
+	
+	</script>
+    
+  
+ 
+    
+    
+	    
+ {% endblock %}

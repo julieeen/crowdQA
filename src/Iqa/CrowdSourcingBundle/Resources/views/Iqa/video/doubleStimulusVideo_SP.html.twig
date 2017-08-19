@@ -1,0 +1,152 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	<script src="http://popcornjs.org/code/dist/popcorn-complete.js"></script>
+	
+	{%  endblock %}
+ 
+ {% block body %}
+ 
+ <table style="height:100%; width:100%" border="0" cellpadding="4" align="center">
+    <tr >
+	    <td id="video_frame1" height=70% align="right" >
+
+	    </td>
+	    
+	    <td id="video_frame2" height=70% align="left">
+
+	    </td>
+    
+  
+    </tr>	    
+       
+  </table>
+ 
+    <form method="post" action="" id="form_id">
+		<div id="form" >
+		<input type="hidden" id="form_wait" name="form[wait]" />
+		</div>
+	</form>		
+
+	<script type="text/javascript">
+	var orig_video = document.createElement('video');
+	orig_video.src = "{{ refFilename }}";
+	orig_video.width = "{{ width }}"
+	orig_video.preload = "auto"; 
+
+	var cond_video = document.createElement('video');
+	cond_video.src = "{{ filename }}";
+	cond_video.width = "{{ width }}"
+	cond_video.preload = "auto"; 
+
+	
+	var video_frame1 = document.getElementById("video_frame1");
+	var video_frame2 = document.getElementById("video_frame2");
+	video_frame1.appendChild(orig_video);
+	video_frame2.appendChild(cond_video);
+
+	cond_video.onended = function(e) {
+    	$('#form_id').submit();
+    };   
+
+
+//  *** sync code ****************************************************************
+//	from http://bocoup.com/weblog/html5-video-synchronizing-playback-of-two-videos/
+
+    var videos = {
+    	    a: Popcorn(orig_video),    
+    	    b: Popcorn(cond_video), 
+    	},
+
+    scrub = $("#scrub"),
+    loadCount = 0, 
+    events = "play pause timeupdate seeking".split(/\s+/g);
+    
+    // iterate both media sources
+	Popcorn.forEach( videos, function( media, type ) {
+   	    // when each is ready... 
+   	    media.on( "canplayall", function() {
+    	        
+   	        // trigger a custom "sync" event
+   	        this.emit("sync");
+    	        
+   	        // set the max value of the "scrubber"
+   	        scrub.attr("max", this.duration() );
+
+   	    // Listen for the custom sync event...    
+   	    }).on( "sync", function() {
+    	        
+   	        // Once both items are loaded, sync events
+   	        if ( ++loadCount == 2 ) {
+    	            
+   	            // Iterate all events and trigger them on the video B
+   	            // whenever they occur on the video A
+   	            events.forEach(function( event ) {
+
+   	                videos.a.on( event, function() {
+   	                    
+   	                    // Avoid overkill events, trigger timeupdate manually
+   	                    if ( event === "timeupdate" ) {
+    	                        
+   	                        if ( !this.media.paused ) {
+   	                            return;
+   	                        } 
+   	                        videos.b.emit( "timeupdate" );
+   	                        
+   	                        // update scrubber
+   	                        scrub.val( this.currentTime() );
+    	                        
+   	                        return;
+   	                    }
+   	                    
+   	                    if ( event === "seeking" ) {
+   	                        videos.b.currentTime( this.currentTime() );
+   	                    }
+   	                    
+   	                    if ( event === "play" || event === "pause" ) {
+   	                        videos.b[ event ]();
+   	                    }
+   	                });
+   	            });
+   	        }
+   	    });
+   	});
+
+    scrub.bind("change", function() {
+        var val = this.value;
+        videos.a.currentTime( val );
+        videos.b.currentTime( val );
+    });
+
+    // With requestAnimationFrame, we can ensure that as 
+    // frequently as the browser would allow, 
+    // the video is resync'ed.
+    function sync() {
+        if (videos.b.media.readyState === 4 ) {
+            videos.b.currentTime( 
+                videos.a.currentTime()        
+            );        
+        }
+        requestAnimationFrame(sync);
+    }
+
+    sync();
+    
+//  *** sync code ****************************************************************
+//	from http://bocoup.com/weblog/html5-video-synchronizing-playback-of-two-videos/    
+   	
+   	orig_video.play()
+   	cond_video.play()
+   	
+	</script>
+   	
+  </div>
+    
+ {% endblock %}
+ 

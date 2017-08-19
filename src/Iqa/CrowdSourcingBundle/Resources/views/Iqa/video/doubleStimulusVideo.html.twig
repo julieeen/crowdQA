@@ -1,0 +1,71 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+ 	{%  block jsfunctions %}
+ 	
+	
+	{%  endblock %}
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	{%  endblock %}
+ 
+ {% block body %}
+  	
+  	<table style="height:100%; width:100%" border="0" cellpadding="4" align="center">
+    <tr >
+	    <td id="video_frame" width="70%"  align=center >
+	    	
+{# 	    	<video id="videoarea" width="{{ width }}" autoplay>#}
+{# 	  			Your browser does not support HTML5 video.#}
+{# 	    	</video>#}
+			
+	    </td>
+	    
+    </tr>	    
+       
+  </table>
+  	
+	
+    <form method="post" action="" id="form_id">
+		<div id="form" ><input type="hidden" id="form_wait" name="form[wait]" />
+		</div>
+	</form>		
+
+	<script type="text/javascript">
+
+	var orig_video = document.createElement('video');
+	orig_video.src = "{{ refFilename }}";
+	orig_video.width = {{ width }}
+	orig_video.preload = "auto"; 
+
+	var cond_video = document.createElement('video');
+	cond_video.src = "{{ filename }}";
+	cond_video.width = {{ width }}
+	cond_video.preload = "auto"; 
+
+	var video_frame = document.getElementById("video_frame");
+	video_frame.appendChild(orig_video);
+	orig_video.play()
+	
+	orig_video.onended = function(e) {
+		console.log("end");
+		video_frame.removeChild(orig_video)
+		
+		setInterval(function () {
+			video_frame.appendChild(cond_video);
+			cond_video.play()
+		}, 2000);
+	}
+
+	cond_video.onended = function(e) {
+    	$('#form_id').submit();
+    };
+	 	
+
+	</script>
+   	
+  </div>
+    
+ {% endblock %}
+ 

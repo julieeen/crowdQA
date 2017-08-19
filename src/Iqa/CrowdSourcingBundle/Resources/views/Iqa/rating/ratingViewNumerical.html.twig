@@ -1,0 +1,106 @@
+ {% extends 'IqaCrowdSourcingBundle:Iqa:baseView.html.twig' %}
+
+
+	{%  block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/iqacrowdsourcing/css/jquery-ui-slider-pips.css') }}">
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+ 	
+  	
+  	<script type="text/javascript">
+   	 	
+ 	var usedratingSliderLabels ;
+
+ 	usedratingSliderLabels = {{ usedSliderLabel|json_encode|raw }};      
+
+  	</script> 	
+	
+	{%  endblock %}
+ 
+ 	{% block body %}
+ 	
+	
+
+<div style="height:40%;"></div>
+<center>	
+	<form action = "" method = "post">	
+	<div> Please enter your numerical assessment between (0 - 100) :</div>
+	<br>
+	<input autofocus id="rating_text" type="text" size="30" maxlength="6" value="" style="width:100px; text-align: center;">
+	
+	<button id="button" name="rating" value="3" onclick="stopTime();" type="submit">submit</button>
+
+ 	<div style="height:200px;"></div>
+	<button id="button2" name="rating" value="-1" onclick="stopTime();">skip this vote</button>
+	
+	<input type="hidden" id="time_tracker" name="time" value="-1"/>			
+
+	</form>
+	
+    <br><div id="progressbar" style="width:300px; height:30px; bottom:0"><div id="progressLabel">{{currentImageCount  }} / {{ totalNumberOfImages }}</div></div>
+		
+</center>
+
+	<small>{{ debugText }}</small>
+	
+	<script type="text/javascript">
+	bar = {{ progressBar | json_encode }};    
+   	if(bar){
+   		progressValue= {{ currentImageCount  }} / ({{ totalNumberOfImages }} * 100);
+   		$( "#progressbar" ).progressbar({
+   		    value: progressValue
+   		});
+        $("#progressbar").show();		
+	}
+   	else{
+        $("#progressbar").hide();		
+   	}	
+
+	
+	var button = document.getElementById("button");
+	var field = document.getElementById("rating_text");
+	
+	button.onclick = function(){
+		check_input();
+		this.value = field.value;
+		stopTime();
+	};
+
+	function check_input(){
+		field.value = field.value.replace(/[^0-9.]+/g,'');
+		// check input values!
+		var input = parseFloat(field.value);
+
+		if(isNaN(input)){
+			field.value = "";
+			field.focus();
+			return;
+		}
+
+		if(input > 100){
+			field.value = "to high";
+// 			alert("Number to high!");
+			return;
+		}
+		if(input < 0){
+			field.value = "to low";
+// 			alert("Number to low!");
+			return;
+		}
+
+		field.value = input;		
+		
+	};
+
+	field.onblur = function(){
+		check_input();
+	};
+
+
+	 	
+	</script>
+    
+ {% endblock %}

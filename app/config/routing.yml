@@ -1,0 +1,7 @@
+iqa_crowd_sourcing:
+    resource: "@IqaCrowdSourcingBundle/Resources/config/routing.yml"
+    prefix:   /
+
+#app:
+#    resource: @AppBundle/Controller/
+#    type:     annotation

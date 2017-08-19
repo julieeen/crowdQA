@@ -1,0 +1,140 @@
+/* .ui-slider-tick-mark{
+    display:inline-block;
+    width:2px;
+    background:black;
+    height:16px;
+    position:absolute;
+    top:-4px;
+} */
+
+html, body
+{
+    height: 95%;
+    width: 95%;
+/*    	overflow: hidden; 
+ */
+}
+
+
+* {
+	font-family: arial;
+	font-size:17pt;
+	
+}
+
+select {
+	font-size:14pt;
+}
+
+input{
+	font-size:12pt;
+}
+
+button {
+	font-size:12pt;
+}
+
+submit {
+	font-size:12pt;
+}
+
+
+
+.iqa{
+	background-color:#808080;
+}
+
+span{
+	width: 100%;
+    display: block;
+    height:100%;
+}
+ 
+/* .iqa .button { */
+/*   background-color:lightgray; */
+/* } */
+
+
+.iqa .ui-slider-vertical {
+    height: 400px;
+    width: 8px;
+}
+
+.iqa .ui-slider .ui-slider-handle {
+    cursor: default;
+    height: 1em;
+    width: 1em;
+    position: absolut;
+    z-index: 2;
+    background: #B2B2B2;
+}
+
+.iqa .ui-state-default, 
+.iqa .ui-widget-content,
+.iqa .ui-state-default,
+.iqa .ui-widget-header,
+.iqa .ui-state-default{
+	background: #E6E6E6;
+	border-color: black;
+}
+
+
+
+.iqa .ui-slider-pips .ui-slider-line{
+	background: black;
+	width:0.2em;
+}
+
+.iqa .ui-slider-pips .ui-slider-pip-selected-initial,
+.iqa .ui-slider-pips .ui-slider-pip-selected-initial-first,
+.iqa .ui-slider-pips .ui-slider-pip-selected-initial-second {
+
+      }
+
+.iqa .ui-slider-pips .ui-slider-pip,
+.iqa .ui-slider-pips .ui-slider-pip-selected,
+.iqa .ui-slider-pips .ui-slider-pip-selected-first,
+.iqa .ui-slider-pips .ui-slider-pip-selected-second,
+.iqa .ui-slider-pip:hover .ui-slider-label {
+ 	font-weight: normal;
+    color: black;
+
+
+    }
+
+
+	
+.iqa .commonBox {
+    margin-top:20px;
+    margin-bottom:20px;
+    padding:20px;
+    border: 1px solid black;
+    width: 100%;
+    heigth: 100%;
+}
+
+.iqa #Wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width: 720px;
+}
+.iqa #progressbar {
+    width: 50%;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+    line-height: 35px;
+    background-color: darkgray
+}
+
+.iqa #progressLabel {
+    float: left;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    vertical-align: middle;
+}
+
+
+
